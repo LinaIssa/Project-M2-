@@ -1,0 +1,52 @@
+This is BibTeX, Version 0.99d (TeX Live 2020)
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: report.aux
+The style file: ieeetr.bst
+Database file #1: ref.bib
+Name 1 in "{Baade}, W., and {Zwicky}, F." has a comma at the end for entry baade_zwicky
+while executing---line 969 of file ieeetr.bst
+Warning--empty publisher in TOV_system
+Warning--can't use both author and editor fields in becker
+Warning--empty publisher in becker
+You've used 33 entries,
+            1876 wiz_defined-function locations,
+            709 strings with 8900 characters,
+and the built_in function-call counts, 9363 in all, are:
+= -- 961
+> -- 266
+< -- 0
++ -- 102
+- -- 69
+* -- 643
+:= -- 1245
+add.period$ -- 35
+call.type$ -- 33
+change.case$ -- 31
+chr.to.int$ -- 0
+cite$ -- 36
+duplicate$ -- 535
+empty$ -- 865
+format.name$ -- 69
+if$ -- 2378
+int.to.chr$ -- 0
+int.to.str$ -- 33
+missing$ -- 35
+newline$ -- 104
+num.names$ -- 37
+pop$ -- 89
+preamble$ -- 1
+purify$ -- 0
+quote$ -- 0
+skip$ -- 459
+stack$ -- 0
+substring$ -- 609
+swap$ -- 277
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 0
+warning$ -- 3
+while$ -- 85
+width$ -- 35
+write$ -- 328
+(There was 1 error message)

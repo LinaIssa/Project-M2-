@@ -1,0 +1,555 @@
+\documentclass[a4paper, twoside, 12pt]{article}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{fancyhdr}
+\usepackage{color}
+\usepackage[english]{babel}
+\usepackage{lmodern}
+\usepackage[portrait, margin = 0.7 in]{geometry}   %pour avoir plus de marge
+\usepackage{booktabs}
+\usepackage{cancel}
+\usepackage{ragged2e} % use of  \justify 
+\usepackage{colortbl}
+\usepackage{csquotes}
+\usepackage{datatool}
+\usepackage{helvet}
+\usepackage{mathpazo}
+\usepackage{multirow}
+\usepackage{listings}
+\usepackage{pgfplots}
+\usepackage{xcolor}
+\usepackage{SIunits}
+%\usepackage{mathenv}
+\usepackage{multicol}
+\usepackage{amsmath}      %des trucs de maths en plus
+%\usepackage{amssymb}	  %pour avoir plus de symboles mathématiques
+\usepackage{url}
+\usepackage{mathrsfs}  
+\usepackage{dutchcal}
+\usepackage{graphicx}
+\usepackage{wrapfig}
+\usepackage{caption,subcaption}
+\usepackage[inline]{enumitem}
+\usepackage{calrsfs}
+\usepackage{listings}
+\usepackage{hyperref}
+\usepackage{cleveref}
+\graphicspath{{./pictures/}}    %dir de tes images
+%Les deux suivants servent à faire des sous figures dans les figures avec leur propre légende
+\usepackage{float}			  
+%\usepackage{gensymb}
+\usepackage{makecell}
+\usepackage{bm}     %pour avoir du texte en gras dans les équations ±÷
+\usepackage{textpos}
+\numberwithin{equation}{section}
+\usepackage[rightcaption]{sidecap}
+\DeclareMathOperator{\arccosh}{arccosh}  %si tu veux créer des nouveaux opérateurs de math
+\pagestyle{plain}
+\newcommand{\thesisauthor}{\textsc{Issa} Lina}
+\newcommand{\mb}[1]{\textcolor{blue}{#1}}
+\newcommand{\citations}[1]{\textcolor{green}{#1}}
+\newcommand{\redflag}[1]{\textcolor{red}{#1}}
+
+%*********************************************************************
+%                             REPORT 
+%*********************************************************************
+
+%*********************************************************************
+%                       PAGE de Couverture  
+%
+%*********************************************************************
+%\usepackage{biblatex} %Imports biblatex package
+%\addbibresource{ref.bib} %Import the bibliography file
+
+\begin{document}
+\thispagestyle{empty}
+\begin{center}
+\vspace*{50pt}
+
+
+
+\newcommand{\HRule}{\rule{\linewidth}{0.5mm}}	
+\begin{minipage}{0.40\textwidth}
+{\flushright{   \includegraphics[width = \textwidth]{pictures/logo_ENS.png} }}
+    \begin{flushleft}
+  %  \includegraphics[width = \textwidth]{pictures/logo_ENS.png} \\
+
+    \includegraphics[width = 0.70\textwidth]{pictures/logo_IRAP.jpg}
+    \end{flushleft}
+\end{minipage}
+\begin{minipage}{0.40\textwidth} 
+    \begin{flushright}
+   \includegraphics[width = 0.9\textwidth]{pictures/logo-observatoire-de-paris-500}
+    \end{flushright}
+\end{minipage}
+
+
+%\vspace{100pt}
+
+
+%\textsc{\huge Ecole Normale Supérieure Paris-Saclay}\\[1.5 cm]
+%\textsc{\LARGE ARPE - 2019/2020}
+
+
+\vspace*{10 pt}
+
+\HRule \\[1 cm]	
+{ \huge \bfseries Constraining the neutron stars equation of state with NICER}\\[0.4cm]	 																	
+\HRule \\[1cm]	
+
+
+\begin{center}
+\includegraphics[width=0.45\paperwidth]{pictures/NS.png}
+\end{center}
+%\begin{textblock*}{4cm}(10cm,-0.8cm)
+%\textcolor{white}{\tiny{credits: Digital drawing by Robin %Dienel}}
+%\end{textblock*}
+%
+
+
+\vspace{10pt}
+
+\LARGE \textsc{Lina Issa} \\
+\vspace{10 pt}
+\text{\LARGE 15 avril 2021  - 15 août 2021}\\ 
+
+\vspace{10 pt}
+\mbox{\LARGE Under the supervision of \textsc{Natalie Webb} %\textsc{Sébastien Guillot}}
+}
+
+
+\end{center}
+
+\newpage
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%*********************************************************************
+% 			Déclaration sur l'honneur
+%*********************************************************************
+\thispagestyle{empty}
+\noindent Je soussignée Lina Issa certifie sur l'honneur :
+\begin{enumerate}
+\item que les résultats décrits dans ce rapport sont l'aboutissement de mon travail;
+\item que je suis l'auteure de ce rapport; 
+\item que je n'ai pas utilisé des sources ou résultats tiers sans clairement les citer et les référencer selon les règles bibliographiques préconisées. 
+\end{enumerate}
+Je déclare que ce travail ne peut être suspecté de plagiat 
+
+Date: 22/06/2021
+\newpage
+%*********************************************************************
+% 			Foreward and Achnowledgments
+%*********************************************************************
+%\section*{Forward and Acknowledgements}
+%\addcontentsline{toc}{section}{Forward and Acknowledgements}
+%\pagenumbering{roman}
+
+
+%\newpage
+%*********************************************************************
+% 			ABSTRACT
+%*********************************************************************
+\section*{Abstract}
+\addcontentsline{toc}{section}{Abstract}
+
+\hspace{\parindent}	 Pulsars are typically studied in the radio domain, but studying them at higher energies allows us resolve features on the surface as small as a kilometre, as well as accurately measure their radii, which are of the order of 12 km. We study the X-ray radiation of thermally emitting pulsars detected by the NASA mission NICER (Neutron Star Interior Composition Explorer), installed on the International Space Station since 2017, to probe both the neutron stars' interior and exterior. In particular, we reduce and analyse the NICER X-ray spectral-timing event data of one chosen pulsar with a fairly low magnetic field and for which an accurate mass measurement from radio observations has already been determined.  We perform pulse profile modelling for the pulsar to extract the waveform and subsequently compare it to cutting-edge relativistic models (Riley et al. 2019) that take into account relativistic effects on the emitted radiation assuming a model for the surface emission.  Then, a Bayesian inference is applied on our data sets to retrieve parameters such as the mass and the equatorial radius. Knowing the mass and the radius allows us to constrain the density and pressure of the pulsating neutron star and thus to have a better understanding of the material making up its core and of the equation of state of dense matter. Finally, we infer the shape and location of the emitting region, providing us with an insight into the magnetic configuration of the pulsating neutron star. Comparing the radio and X-ray light curves also allows us to infer the site of the radio emission.
+
+\newpage
+%\section*{Structure layout}
+%\addcontentsline{toc}{section}{Structure layout}
+%\hspace{\parindent}	
+
+%\newpage
+\pagestyle{fancy}
+\fancyhead{}
+\fancyhead[LE,RO]{\textsl{\leftmark}}
+\fancyhead[RE,LO]{\thesisauthor}
+\tableofcontents
+\pagebreak
+\listoffigures
+%\listoftables
+\newpage
+%*********************************************************************
+%          INTRODUCTION 
+%*********************************************************************
+
+\section{Introduction : the neutron stars under scrutiny with {\itshape{NICER }}}
+\label{sec:1}
+\pagenumbering{arabic}
+\hspace{\parindent}	Neutron stars are some of the most exotic objects in the Universe. Indeed, with a mass of roughly one solar mass contained in a sphere of about 10 km radius, the size of any big city, they challenge our understanding of matter in an extremely dense and cold environment \cite{baade_zwicky} \cite{ScorpiusX-1}. One way to quantify how compact these objects are is through {\itshape{the compactness parameter}}, also called the {\itshape{relativity parameter}} defined as a relation between the gravitational mass $M$ of an object, its radius $R$, the gravitational constant $G$ and the speed of light $c$ as follows: 
+\begin{equation}
+\Xi = \frac{GM}{Rc^2}
+\label{eq:compactness}
+\end{equation} 
+ Neutron stars' compactness is about $\Xi \sim 0.2$, while that of a sun like star is $2 \times 10^{-6}$, and that of a black hole is 1, which sets the limit that an astrophysical object can reach. \\
+ 
+ Neutron stars are believed to be the leftovers of massive stars that exploded in a core-collapse supernovae \cite{SN_remnants}. In this scenario,  the iron core of the dying star collapses into a very dense object, reaching ten times the density of an atomic nucleus, $\rho > \unit{10^{14}} {\gram \per  \centi \meter^{3}}$. Before the supernova explosion, the intern structure of the dying star is stratified, the lightest elements being in the outer shells. The iron core is supported against gravitational collapse by the electronic degeneracy pressure as long as its mass does not exceed the Chandrasekhar mass\footnote{The Chandrasekar mass is the maximum mass of a star supported against collapse by the electronic degeneracy pressure \cite{Chandrasekhar}.}. However, this balance is challenged by the neutronisation of the nuclei through electronic capture\footnote{$p + e^{-}  \rightarrow n + \nu_e$ } occuring when matter is compressed at such high densities. This leads to a depletion of electrons and,{ \itshape{in fine}}, to a  decrease of the electronic degeneracy pressure: the core is no longer supported against gravity and collapses until it reaches the atomic density : a neutron star is born. \\
+
+\hspace{\parindent}	 After briefly depicting their structure, we will investigate the different populations of neutron stars in terms of their observational properties. Then, we show how one can take advantage of these to probe their interior. We will put a particular emphasis on the NASA Space Observatory {\itshape{NICER}}\footnote{Neutron Star Interior Composition Explorer}\cite{NICER_mission}, an X-ray telescope launched in 2017 and installed on the International Space Station. 
+
+\subsection{The make-up of neutron stars}
+
+\hspace{\parindent}	 The neutron star's structure can be broken down into 4 layers, with the density getting higher with depth, as shown in F\textsc{igure} \ref{fig:NS_structure}: \\
+
+\begin{enumerate}[label=\roman*)]
+\item \textbf{the atmosphere}: the surface of neutron stars is surrounded by a thin (about $\unit{10}{\centi \meter}$)\cite{atmosphere_modeling} atmosphere only composed of hydrogen\footnote{If the neutron star has accreted matter from a companion star, there can also be found other light elements such as helium or carbon deep in the atmosphere.} . 
+
+\item \textbf{the envelope or surface}: below the atmosphere, an envelope of heavier elements with a stratified structure lies on the crust. As we go deeper in the envelope, the elements become more massive, up to the iron on its boundary with the crust. The density and the pressure are high enough for the nuclei to be fully ionised and  for the electrons to be degenerate. The matter is well described as a fully ionised plasma embedded in a sea of degenerate free electrons. 
+\item \textbf{the crust}: The density in the crust reaches a density as high as $\rho \geq \unit{10^9}{\gram \per  \centi \meter^{3}}$\cite{crust_NS}, so that the neutronisation of the nuclei takes place, in which protons are converted into neutrons by electronic capture. As a result, the nuclei become more massive with depth, increasing thus the density.  Once the neutron-drip density is reached, which is about $\rho_{\rm{drip}} \sim \unit{10^{11}}{\gram \per  \centi \meter^{3}}  $, the neutralisation is halted and the neutrons are liberated from their nuclei. The free neutrons are believed to be in a superfluid state. In the crust, the neutron-rich nuclei are arranged into a crystal lattice, bound together by  Coulomb interaction and immersed in a sea of superfluid neutrons. As we go deeper in the crust, the density increases and the free neutrons contribute increasingly to the pressure. 
+
+\item \textbf{the core} : The outer core harbours a mixture of superconductive protons and superfluid neutrons. Indeed, once the nuclear density is reached,  individual nuclei can no longer exist and dissolve to form a neutron-rich nucleonic matter. The mean distance between particles being about the Fermi distance\footnote{The fermi distance corresponds to $\unit{1}{\femto\meter} = \unit{10^{-15}}{ \meter}$}, neutrons can interact by the nuclear force, which becomes the dominant source of pressure. As for the inner part of the core, its composition is yet to be fully understood. Indeed,  the behaviour of the matter under such extreme conditions is hardly reproduced on Earth, leaving the issue open for theoretical suggestions. 
+\end{enumerate}
+
+ \begin{wrapfigure}{r}{0.4\textwidth}
+%\centering
+  \includegraphics[width=0.4
+  \textwidth]{pictures/NS_structure.jpg}
+  \caption[Structure of a neutron star ]{Credits: NASA’s Goddard Space Flight Center/Conceptual Image Lab }
+  \label{fig:NS_structure}
+\end{wrapfigure}
+
+
+
+\hspace{\parindent}	 The microphysics of the dense matter interactions in neutron stars' core is macroscopically  expressed through the equation of state of the star (hereafter EOS), that is a density-pressure-temperature relation. 
+The EOS being highly sensitive to the make-up of the core, the uncertainties on its composition are translated into EOS uncertainties.  As the temperature in neutron stars' core is nearly null, the dense and cold matter in the core of neutron stars can be safely described as a baratropic fluid, so that the EOS can be given as a relation between pressure and density only. Given the high compactness of neutron stars (see E\textsc{quation}\ref{eq:compactness}), their structure needs to be described in the framework of General Relativity. In that regime, the stellar structure equations are the Tolman-Oppenheimer-Volkoff (T.O.V) system\cite{TOV_2} \cite{TOV_system} given in E\textsc{quation}  \ref{eq:TOV}  
+
+\begin{align}
+\label{eq:TOV}
+\begin{split}
+\frac{d{m}}{dr} &= 4 \pi r^2 \rho\left(r\right) \\
+ \frac{dP}{dr} &= - \left( \rho(r) + \frac{P(r)}{c^2}\right) \frac{d\phi}{dr} \\
+\frac{d\phi}{dr} &= \frac{Gm(r)}{r^2} \left(1 - \frac{2Gm(r)}{rc^2}\right)^{-1} \left(1 + 4\pi \frac{P(r)r^3}{m(r)c^2})\right) 
+\end{split}% \right.
+\end{align}
+
+
+\noindent where $\phi$ is the gravitational field,  $G$ the graviationnal constant, $m$ the mass of a sphere with a radius $r$, $P$ the pressure and $\rho$  the density, both evaluated at $r$.  
+This system  describes the hydrodynamic equilibrium of a static\footnote{This assumption enforces a spacetime with spherical symmetry. } non-magnetic and relativistic object \footnote{For highly rotating and magnetised neutron stars, the T.O.V needs to be amended \cite{Riley+19}.}. To solve this system one needs to consider an EOS, that is $P(\rho)$ in order to determine the whole structure of the neutron star. This will give a maximum mass as illustrated in F\textsc{igure} \ref{fig:EOS} beyond which there is no stable solution and the object collapses into a black hole.  Thus, by measuring the mass of a neutron star, one can rule out any EOS models for which the measured mass $M$ is greater than the maximum mass predicted by the EOS model $M_{\rm{max}}$ : $M_{\rm{max, EOS}} < M$.   \\
+
+\hspace{\parindent}	  There are different families of  EOS models suggested for the interior of neutron stars. The traditional one, gathered under the name of nucleonic models,  describes the inner core as mostly filled with neutrons. %This yields to a less compressible matter, resulting in a less massive and a larger radii %a stiffer\footnote{The stiffness of an EOS is a way to describe how fast pressure evolves with density} EOS.  
+Other models include strange quarks, either in the form of deconfined quark mixture, as in quark star models, or in an exotic particle such as hyperons (strange baryon), as in hybrid star models. 
+These three families of models are represented in a density-pressure plane in F\textsc{igure} \ref{fig:EOS}. Together with the T.O.V system, an EOS model yields to a mass-radius relation as illustrated in the right panel of  F\textsc{igure} \ref{fig:EOS}.
+Indeed, this relation is obtained by solving the T.O.V system with an EOS that closes the system and with a given central density and a spin rate \cite{Hartle&Thorne}.The gravitational mass of a neutron star $M$ can then be integrated to get a mass-radius relation assuming that the pressure is cancelled out at the radius  $R$ of the star. 
+
+
+\begin{figure}[!h]
+\centering
+\includegraphics[scale=0.8]{pictures/EOS.png}
+\caption[EOS models and mass-radius relationship]{{\itshape{Left panel}: }Theoretical models of EOS obtained assuming a nucleonic core (in red), an hybrid model with strange quarks (in solid black) and a deconfined quark core (in purple).  {\itshape{Right panel}}: The corresponding mass-radius relation for each EOS models is driven from the T.O.V system. For a given EOS model, there is a set of ($M$-$R$) couple values possible. Figure taken from \cite{Watts+2015}}.
+\label{fig:EOS}
+\end{figure}
+% EOS contrains  
+
+
+\subsection{The different populations of neutron stars }
+%\subsection{Observational constraints on the equation of state: a multi-wavelength approach}
+\label{subsec: PulsarsPop}
+\hspace{\parindent}	 The classification of neutron stars is mostly based on their observational signatures. They are commonly separated into two classes, depending on the situation in which they are found: isolated or involved in a binary (or even multiple) system. 
+\\
+
+{\itshape{ Isolated neutron stars }} \\ 
+
+
+ At the neutron stars' surface, the temperature can reach 100 000 K, so that their thermal emission peaks mainly in the soft X-ray band. Given their small size and the poor sensitivity of X-ray instruments, it is difficult to detect the thermal emission from cool, isolated neutron stars. Currently, this is only achieved for nearby neutron stars that are closer than roughly $\unit{500}{\rm{pc}}$\footnote{This only applies for cold and isolated pulsars. Magnetars, for example, can be detected as far as $\sim \unit{1}{\kilo\rm{pc}}$ due to their brightness}.  Only a dozen of dim X-ray thermally emitting sources have been discovered to date. 
+Hence, neutron stars would have been extremely hard to observe and to study, would it not have been for {\itshape{the pulsar phenomena}}. \\ 
+\begin{wrapfigure}{r}{0.4\textwidth}
+\centering
+\includegraphics[scale=0.5]{pictures/pulsar.png}
+\caption[Schematic illustration of a pulsar]{Schematic illustration of a pulsating neutron star with the magnetic field lines drawn in dashed and solid lines.}
+\label{fig: cartoon pulsar}
+\end{wrapfigure}
+Pulsars are neutron stars surrounded by a rotating magnetosphere, with a magnetic field about $10^{7-14}$\rm{G} and a rotational period ranging from about $unit{1}{\milli\second}$ up to roughly  $unit{1}{\second}$. The charged particles are accelerated along the open magnetic field lines and escape at the polar cap, leading to the emission of an energetic and focused beam, as illustrated in F\textsc{igure} \ref{fig: cartoon pulsar}. 
+Since the magnetic field of the neutron star is not necessarily aligned with the rotational axis, an observer that happens to be along the line of sight of a beam will perceive a regularly pulsed signal, with a pulsation  equating that of the rotational period of the neutron star. These energetic beams are mostly detected in the radio band but some of them are detected at higher energies, particularly in X and in gamma $\gamma$ bands (see S\textsc{ection} \ref{subsec: EmissionModels}). The detection of a pulsar enables a distance measurement thanks to the dispersion effect that induces a delay in the arrival time of photons depending on their frequency. \\
+
+Since a pulsar can be considered as a magnetic dipole, it loses energy by radiation which is extracted from its rotational reservoir\footnote{assuming that the neutron star is old enough (older than hundred years). Otherwise, the rotation breaks the spherical symmetry by flattening the poles, generating gravitational waves radiation}. As a result, the pulsar spins down and the period increases $\dot{P} > 0$: this is referred to as the {\itshape{spin down law}} (see E\textsc{quation} \ref{eq:spin_down_law}).
+
+\begin{align}
+\begin{split}
+E_{\rm{rot}} &= \frac{1}{2} I \Omega^2, \\
+\dot{E}_{\rm{rot}} &= - \dot{E}_{\rm{rot}}=-4 \pi^2 I \frac{\dot{P}}{P^3}\\
+\label{eq:spin_down_law}
+\end{split} 
+\end{align}
+
+\noindent with $I$ the moment of inertia of the star, $\Omega$ its angular speed and $P$ its period, with $P=2\pi/\Omega$. \\
+Then, it is often assumed that the rotational speed evolution follows a power law 
+\begin{equation}
+\dot{\Omega} = - k \Omega^{\alpha}
+\label{eq:spindown}
+\end{equation} 
+in which $\alpha$ is the  braking index and $k$ a coefficient. \\ The age of a pulsar can be deduced from the measurement of the spin down rate $\dot{P}$, assuming the power law evolution in (\ref{eq:spindown}). The observed pulsars with a known period,  period derivative and  magnetic field are represented in a $\dot{P}-P$ plane in F\textsc{igure} \ref{fig: diagPP}. From this diagram, it appears that the pulsars can be gathered into three groups: 
+
+\begin{figure}[!h]
+\centering
+\includegraphics[scale=0.8]{pictures/p-p.pdf}
+\caption[$\dot{P}-P$ diagram of pulsars]{$\dot{P}-P$ diagram of observed pulsars. The pulsars are represented with a dot in a blue circle if they have been identified in a binary system,  with a cross if in a globular cluster, as a star if extragalactic and as a triangle if associated with a supernova remnant. The pulsars in red  have their period less than $\unit{30}{\milli\second} $: they belong to the millisecond pulsar class. The diagram also displays the lines of constant age (in dotted lines), of constant magnetic field (in dashed lines) and of energy loss (in dash-dotted lines). The blue shaded area is the graveyard delimited by the death line. Below that line, models predict that the radio emission is no longer sustained. Figure taken from \cite{diagP-P}}
+\label{fig: diagPP}
+\end{figure}
+\begin{enumerate}[label=\roman*)]
+\item \textbf{"standard" pulsars}: This is the main population, with about $90 \%$ of the observed pulsars. Their period spans from $P \sim \unit{30}{\milli\second} $ up to $P \sim \unit{30}{\second}  $ and their magnetic field ranges from $10^{11} $ to $ 10^{13} \rm{G}$.
+\item \textbf{millisecond pulsars}, also known as recycled pulsars (hereafter MSP): These pulsars stand out for at least two reasons. First they spin up rapidly, their rotational period being in the order of the millisecond. Then, they are older than the standard pulsar population and have a lower magnetic field, about $ B < 10^{9} \rm{G}$. This is well explained by the fact that these pulsars get spun up by the accretion from a companion star. This is corroborated by the fact that millisecond pulsars are very often found in a binary system ($\sim 80 \%$)  and around half of known MSPs are in globular clusters \cite{Lorimer+2008} .
+\item \textbf{magnetar}: This population of pulsars occupies the top right corner of the diagram (F\textsc{igure} \ref{fig: diagPP}). They stand out by their higher magnetic field, about $10^{14} \rm{G}$ and a slower rotation, from $P \sim \unit{6}{\second}$ to $P \sim \unit{12}{\second}$ \cite{magnetar}.
+\end{enumerate}
+
+{\itshape{Neutron stars in a binary system}} \\
+
+As for neutron stars involved in a binary system, other behaviours can be displayed. We differentiate neutron stars with a stellar companion from those with another compact object, such as another neutron star, a stellar-mass black hole or even a white dwarf.  The former can form an X-binary, while the latter is a source of gravitational waves. In an X-ray binary, the external layers of the companion star overflow the Roche lobe\footnote{From the astronomer Edward Roche. It is the surface of equipotential of the binary system accounting both the gravitational and the centrifugal force.}  and fall through the inner Lagrangian point, where the gravitational force of the stars is cancelled, until it is captured by the compact object, forming an accretion disc around it, due to the excess of angular momentum from the rotation of the binary system. The thermally emitting disk in the X-rays helps to put constraints on the radius of the neutron star. If the companion is another compact object, the binary system loses orbital energy by gravitational waves radiation, leading in the final stage to the merger of the two objects. The neutron star involved in such a binary system is thus revealed to us with the release of gravitation waves, for inspiralling compact objects distort the space-time fabric, creating ripples that propagate at the speed of light. Then, the merger itself can be the source of a multi-wavelength signal, such as short gamma ray bursts,  kilonovae and  afterglows. 
+Multi-messengers observations are a golden opportunity to study neutron stars since they can provide us with an unprecedented insight into their cores\cite{GW_constrains} \cite{MultiMessenger_denseMatter}. \\
+
+\subsection{The {\itshape{NICER}} telescope: unveiling neutron stars' interiors}
+\label{subsec: NICER}
+\hspace{\parindent}	 The observation of various neutron stars helps improving our understanding of the dense matter in their core. Given the relation between the EOS and the mass-radius relation described in F\textsc{igure} \ref{fig:EOS}, a mass-radius measurement amounts to inferring the core equation of state.  \\
+
+The mass measurement of a neutron star can put stringent constraints on the equation of state, ruling out those predicting a lower maximum mass than the one measured. The mass is usually determined in a binary system, from orbital parameters and the Kepler equations,  which is done even more precisely if the neutron star is involved with another compact object. Those mass constraints are inferred by timing radio pulsars \cite{Radio_Timing_Mass}.\\ 
+
+As for the radius measurement, this could be achieved, in principal,  by investigating the spectral lines in the thermal emission from a neutron stars' surface. The compactness (see E\textsc{quation} \ref{eq:compactness}), can be deduced from the gravitational redshift of the spectral lines\footnote{To date, there has not been a confirmed observations of spectral lines in the thermal emission from the surface of neutron stars.} whose expression is given by E\textsc{quation} (\ref{eq:gravitational_redshift}). 
+\begin{equation}
+\frac{\lambda_{\rm{measured}}}{\lambda_{0}} = 1 + z = \frac{1}{\sqrt{1-2\times\Xi}}
+\label{eq:gravitational_redshift}
+\end{equation} 
+\noindent where $\lambda_{\rm{measured}}$ is the observed wavelength, $\lambda_{0}$ the rest-frame wavelength and $z$ the redshift. One can also introduce the gravitational parameter $g_{\rm{r}}$ as $g_{\rm{r}} = 1/(1+z)$. \\
+Thus, knowing the gravitational redshift $z$ can give access to the structure of the star.   
+However, in practice, this has been proven to be quite infructuous given the various uncertainties that hinder such spectral analysis\footnote{More particularly, the measurement is highly model-dependant, so that it relies on different assumptions that are just as much source of uncertainties.} \cite{Bogdanov+2007}. 
+Instead, one can take advantage of a transiently-accreting and X-ray bursting neutron star to perform a radius measurement via an X-ray spectral modelling. Indeed, when these bursts reach the Eddington flux, the gravitational mass of the neutron star can be retrieved knowing the distance of the source as well as the gravitational redshift \cite{Baillot}. \\
+\begin{figure}[!h]
+\centering
+\includegraphics[width=0.8\textwidth]{pictures/pulsations.pdf}
+\caption[Pulse profile of PSR+J0030]{Pulse profile of PSR+J0030 obtained after phase folding the X-ray events detected by NICER  \cite{Riley+19}}
+\label{fig:pulsations}
+\end{figure}
+
+There is another approach to measure the neutron stars' radius which involves the millisecond pulsars population. Indeed, as pointed out in F\textsc{igure} \ref{fig: diagPP}, the millisecond pulsars are characterized by a low magnetic field, and since they are older than the other pulsars, their surface is overall colder ($T < 10^5 K$). 
+Thus, their thermal emission in the X-ray arises mainly from small regions called {\itshape{hot spots}}. Those small emitting regions are revealed through phase-resolved X-ray observations by the presence of rotation-induced pulsations\footnote{These pulsations are not observed if the rotation axis of the neutron star is aligned with either the line of sight or the magnetic axis}. In F\textsc{igure} \ref{fig:pulsations}, we present an example of a pulse profile\footnote{ X-ray counts per rotational bins per channel counts of the detector}  of the pulsar PSR J0030+0451 obtained by phase-folding X-ray events. Each observed pulsation can be associated to a hot spot. As displayed in F\textsc{igure} \ref{fig:HotSpots}, the observed pulsation is modulated by light bending exerted by the neutron star, so that one can retrieve a relation between mass and radius by accurately measuring this relativistic effect in neutron stars' light curves. More particularly, the rapid spin of MPs, ($> \unit{100}{\hertz}$), ensures that there is enough detected pulsed photons and reduces the level of uncertainties on the mass and radius constraints \cite{Riley+19}.   \\
+
+Indeed, the spectra and light curves of the hot spots encode information about the mass and the radius of a neutron star in various ways, notably via gravitational effects. As shown in E\textsc{quation} \ref{eq:emergent_radiation},  the gravitational redshift appears in the expression of the emergent radiation, $F_{\nu}$, expressed at  frequency $\nu = g_{r}\nu_{0}$, $\nu_{0}$ being the emission frequency in the frame of the neutron star, and for an observer at a distance $D$ from the star. 
+
+\begin{equation}
+F_{\nu} = 2 	\left( \frac{R}{D}\right)^2 g_{r} \int{K I_{\nu_{0}}(\mu) \mu d\mu}
+\label{eq:emergent_radiation}
+\end{equation}
+with $\mu= cos(\theta)$, where $\theta$ is the angular between the normal and wave vector of the emitting spot, $I_{\nu}$ the specific intensity and $K$ a geometrical parameter depending on the shape of the hot spot \cite{HotSpots}. \\
+
+
+For models including a neutron star's atmosphere\cite{HotSpots}, one can retrieve an additional information on the mass and radius ratio through the surface gravity $g$, defined in  E\textsc{quation} \ref{eq:grav_surface},  by investigating the frequency-dependent limb darkening effect which accounts for the anisotropy of the emergent radiation and the energy-dependency of the light curves \cite{atmosphere_modeling}. \\
+\begin{equation}
+g = \frac{GM}{R^2} (1+z)
+\label{eq:grav_surface}
+\end{equation}
+
+The NICER X-ray telescope is particularly well suited to carry out such kinds of studies. Launched in 2017, this soft X-ray telescope on board the International Space Station is able to perform X-ray timing and spectroscopy observations of pulsars\cite{NICER_mission}. It is composed of a lightweight X-ray concentrator optics operating in $\unit{0.2-12}{\kilo eV} $ and a small silicon drift detectors. NICER can time-stamp these X-rays with an absolute timing better than $\unit{300}{\nano \second}$, thus enabling a precise tracking of the pulsations from the most rapid neutron stars. \\
+
+
+Its energy resolution is similar to that of {\itshape{XMM-Newton}} and Chandra, while its time resolution is about $100$ to $1000$ times better than that of XMM. Moreover, it stands out from other X-ray telescope by its greater sensitivity, the minimum detectable flux\footnote{In the \unit{0.5-10}{keV} band. The minimum flux detectable is evaluated with a $5 \sigma$}   being about $\unit{3\times 10^{-14}}{ergs\quad s^{-1} {\centi\meter}^{-2}}$ and with its spatial resolution about $5''$ (non-imaging field of view), slightly better than XMM. It can also accumulate up to $\unit{2} {\mega \second}$ of observations, way more than the $\sim \unit{100 }{\kilo \second}$ of Chandra's or XMM 's observations. It has an effective area of $0.2 \  \meter^2$ at $2 \ \kilo\rm{eV}$ dropping to $0.06 \  \meter^2$ at $6 \ \kilo\rm{eV}$ \cite{NICER_mission}. The high energy resolution of NICER enables phase-resolved spectroscopy, while the absolute time stamps allow coherent light curves integration over years. 
+
+\begin{figure}[!h]
+\centering
+\includegraphics[width=0.7\textwidth]{pictures/HotSpots.pdf}
+\caption[Light bending effect on pulses from neutron stars surface hot spots]{Pulses from neutron stars surface hot spots are subjected to the gravitational light bending. For a non-relativistic star, that is for a $\protect\Xi \protect \geq 10^{-4}$  (see E\textsc{quation} \ref{eq:compactness}),  when the emitting region goes out of view, the flux drops to zero.  That is not the case for a neutron stars whose great gravity warps the spacetime in its vicinity.\footnotesize{Credit: S. Morsink $\protect\&$ NASA }}
+\label{fig:HotSpots}
+\end{figure}
+
+All these characteristics combined %, summed up in a comparative T\textsc{able} \ref{table:x-ray_comparaison},
+make NICER the most suitable mission for the observation of pulsations in neutron stars' light curves. \\
+%\begin{table}[!h]
+%\centering
+%\begin{tabular}{l||l|l|l|l}
+%				& energy resolution & time resolution & spatial resolution &  sensitivity\\
+%				\hline
+%NICER  & $\unit{85}{eV}$ at $\unit{1}{keV}$ and  & <$\unit{300}{\nano \second}$ 	& $5''$	&$\unit{3\times 10^{-14}}{ergs s^{-1} {\centi\meter}^{-2}}$\\
+%&$\unit{137}{eV}$ at $\unit{6}{keV}$&& &  \\
+%\hline
+%Chandra 	& 	1.70 & 3.45	& 10.78& -0.30\\
+%\hline 
+{%\itshape{XMM-Newton}} & 	1.70 & 3.45	& $6''$& $\unit{7.5\times 10^{-13}}{ergs s^{-1} {\centi\meter}^{-2}}$\\
+
+%\end{tabular}
+%\caption{NICER performances compared to two others X-ray telescopes:XMM-Newton and Chandra}
+%\label{table:x-ray_comparaison}
+%\end{table}
+
+Further analysis of these pulsations can provide us with information about 
+\begin{enumerate*}[label=\roman*)]
+\item the structure, 
+\item the dynamics \cite{dynamics_NS}, 
+\item the radiation pattern and subsequently the magnetic configuration 
+\end{enumerate*}
+of neutron stars. Indeed, the neutron star's radius can be derived from lighcurves analysis (see S\textsc{ection} \ref{subsec: PulseProfileTechnique}), while its mass can be inferred from phase coherent timing and then cross-checked with radio timing analysis if radio data is made available. \\
+
+
+One interesting target for NICER is the population of rotation-powered millisecond pulsars\footnote{ In a rotation-powered pulsar, the radiation is powered by the loss in rotational energy, by opposition with an accretion-powered pulsar}. In a rotation-powered pulsar, the pulsations are extremely stable ($dP/dt \sim 10^{-18}-10^{-21}$ \cite{becker_RotationPoweredNS}) in contrast with what is observed in an accretion-powered pulsar, for which the pulse profile variations are induced by changes in the accretion flows \cite{Watts_PulseProfileModelling}.  
+
+
+
+%I \textcolor{red}{ref to following section}. \\
+
+
+%*********************************************************************
+%          XPSI modeling  
+%*********************************************************************
+\newpage
+\section[Modelling the X-ray emission from MPS{\tiny{s}} surface hot spots]{Modelling the X-ray thermal emission of millisecond pulsars with XPSI}
+\label{sec: 2}
+\hspace{\parindent}	As mentioned above, rotation-powered MPs are the most suitable target to conduct pulse profile analysis on the rotationally-modulated emission from neutron stars surface hot spots. Hence, in this section and the following (S\textsc{ection} \ref{sec: 3}), we will focus mainly on this population of millisecond pulsars.\\
+
+Thanks to its large effective area of several square meters and its high time resolution, the NICER telescope can perform pulse profile modelling on the X-ray thermal emission from MPS hot spots surface. Before discussing the pulse profile technique, we ought to describe  the physical processes at the origin of X-ray emission first. Then, we illustrate how the pulse profile analysis (S\textsc{ection} \ref{subsec: PulseProfileTechnique}), also known as waveform or light curve modelling, can be used to deliver simultaneous measurements of both the radius and the mass following a Bayesian approach (S\textsc{ection} \ref{subsec: XPSI}}). We will introduce the X-Ray Pulsation Simulation and Inference (X-PSI), a software developped by Riley and described in \cite{Riley+19} to carry out Bayesian modelling of X-ray pulsations detected by the NICER telescope. 
+
+
+
+\subsection{The emission models of pulsar }
+\label{subsec: EmissionModels}
+
+\hspace{\parindent}	The pulsar phenomenon is well described when we consider a neutron star as a magnetic dipole rotating in a dense magnetosphere as firstly assumed in the Goldreich $\&$ Julian's model \cite{PulsarModels} in which charged particles are stripped away from the surface, and with its magnetic axis not being aligned with the rotational axis (see F\textsc{igure} \ref{fig: cartoon pulsar}). \\
+
+
+
+There are different non-thermal processes at work in the magnetosphere which can account for the emission of a multi-wavelength signal, from the radio band up to $\gamma$ (Gev). Since the charged particles are trapped along the magnetic field lines, they can be accelerated and emit an electromagnetic signal via synchrotron/cyclotron or curvature mechanisms.  There is also another mechanism at play contributing to the emergent radiation: the inverse Compton scattering. Indeed, the thermal X-ray emerging from the pulsar surface is scattered by the particles in the magnetosphere, producing energetic photons at even higher energies. 
+All theses processes produce a power-law spectrum, that is $P(\nu) \propto \nu^{\alpha}$. An important feature of the radio emission is that it must be produced by coherent processes. This might be achieved by a maser or by a coherent curvature radiation taking place in the pair production plasma above the polar cap \cite{RadioCoherentEmission}.
+\newpage
+To produce a radiation, the charged particles taken from the surface to the magnetosphere must be accelerated along the magnetic field lines. \\
+\begin{wrapfigure}{r}{0.4\textwidth}
+\includegraphics[width=0.4\textwidth]{pictures/PolarCap.jpg}
+\caption[Illustration of the magnetosphere structure around a pulsar]{Illustration of the magnetosphere structure around a pulsar with the different emitting regions in which charged particles are accelerated. The light cylinder defines a critical surface which radius is $R_{L} = c/\Omega$ relatively to the rotational axis. Beyond that radius, the magnetic field lines crossing the light cylinder open and the charged particles can escape. Figure taken from \cite{PolarCapCartoon}}
+\label{fig: AccelerationGaps}
+\end{wrapfigure}
+
+This acceleration process is thought to happen in three regions : 
+
+\begin{enumerate}[label=\roman*)]
+\item \textbf{the polar cap}: The polar cap is a region close to the surface delimited by the last open field line on the surface of the pulsar. The charged particles emit electromagnetic radiation via synchrotron-curvature mechanism and can emit very energetic, up to $\gamma$ photons by inverse Compton scattering of the thermally emitted X photons from the pulsar surface. These high energy photons are absorbed through pair production mainly by interaction with the magnetic field:  $\gamma B \rightarrow e^{+} e^{-}$. This leads to a cutoff at relatively low energy ($\sim \giga eV$) \cite{polar_cap_model}. These newly formed charged particles are in turn accelerated and emit via the same mechanisms: synchrotron, curvature and inverse Compton scattering. The produced photons can in turn be absorbed by a pair production and so on. An electromagnetic cascade with a broad range of spectrum, from radio up to $\gamma$ is developed in a focused  beam. 
+\item \textbf{the slot gap}: The slot gap is a thin layer extending for several stellar radii along the boundary of closed magnetosphere. Compared to the polar cap, the acceleration of the charged particles can occur at higher latitudes, resulting in broader emission pulse \cite{harding}. The cutoff is mostly attributed to the finite energy of the emitting particles.
+\item \textbf{the outer gap}: The outer gap is located close to the light cylinder, at low latitudes. Given that the magnetic field is lower in the outer gap than in the polar cap, the pair production is no more predominantly  occurring by interaction with the magnetic field, but is mostly driven by photon collisions : $\gamma \gamma \rightarrow  e^{+} e^{-}$. As a result, the cutoff in the outer gap is expected to occur at higher energies (> $\unit{10}{\giga eV}$) than in the polar cap. 
+\end{enumerate}
+
+
+
+\newpage
+
+Besides the non-thermal emission exposed above, there is a thermal component in the spectrum of a pulsar. As a result, different processes contribute to the emission in the X-ray luminosity of rotation-powered MPSs as illustrated in the spectrum of a pulsar given in F\textsc{igure}  8%\ref{fig: spectra}
+. The non-thermal emission  is indicated by a power-law, while a blackbody like\footnote{The observed thermal emission differs from that of a blackbody because of the atmosphere which a source of anisotropy \cite{HotSpots}.} is indicative of a thermal emission from the surface. The observed non-thermal component in the  X-ray can be attributed to the inverse Compton scattering of thermal photons from the surface, or to the synchrotron process in the polar cap that can produce radiation up to the X-rays. It can also originate not from the pulsar itself but from a pulsar wind or a synchrotron nebula which both produce a non-thermal unpulsed emission in the X band\cite{becker_RotationPoweredNS}.\\
+\begin{figure}[!h]
+\centering
+\includegraphics[width=0.8\textwidth]{pictures/spectre_pulsar.png}
+\caption[Spectrum of PSR B0656+14]{Spectra of a pulsar a young radio pulsar PSR B0656+14 with its thermal and non thermal components. The X-band is composed of a thermal soft component (TS), a thermal hard component (TH) and a non-thermal component represented as a power-law (PL). At lower energies, the spectrum is dominated by non thermal emission related to the magnetosphere activity. Figure taken from \cite{becker}}
+\label{fig: spectra}
+\end{figure}
+
+The thermal component is mainly in the X-ray band and stems from the small regions around the NS magnetic poles that are heated  by the back-flow of relativistic particles that have been accelerated in the magnetosphere. Those regions in which energy from magnetospheric currents is deposited are known as {\itshape{hot spots}}. The expected temperatures and luminosities of the hot spots are\cite{polar_cap_model} : $T_{\rm{hot \ spot}} \sim \ 5 \times 10^5$ - $5 \times 10^6 \ $K and  $L_{\rm{hot \  spot}} \sim 10^{28}$-$\unit{10^{32}}{  \rm{erg} \ \second^{-1}}$. 
+Their characteristics and shapes remain elusive but can be prospected  with pulse profile modelling. 
+\newpage
+
+\subsection{The Pulse profile modelling technique with a Bayesian approach}
+\label{subsec: PulseProfileTechnique}
+
+\hspace{\parindent}	The pulse profile modelling exploits the light bending effect described in S\textsc{ection} \ref{subsec: NICER} to retrieve the compactness which is a ratio between the mass and the radius of the neutron star and to put  constraints on the emitting regions, by investigating the depth of modulation and the harmonic content revealed in a phasogram, e.g. photons counts by rotational phase (see F\textsc{igure} \ref{fig:pulsations} as an illustration). \\
+
+In order to retrieve the mass and the radius of a rotationally powered MPS, one needs to know how the hot spots light curves depend on mass and radius. This can be achieved by fitting various parametrized light curve models to data using either a Bayesian approach or a Markov Chain Monte Carlo sampling methods \cite{miller}. However, those models need to take into account various assumptions about the geometry of the surface emission, such as the observer's inclination, the temperature pattern of the surface, and must be coupled to an atmosphere model in order to predict light curves for a given space-time structure governed by the mass, the radius and the spin rate of the pulsar. Only then can we infer, after having sampled those light curve predictions, pulsar mass and radius. \\
+\begin{figure}[!h]
+\centering
+\includegraphics[width=0.9\textwidth]{2D_phasogramme}
+\caption[2D phasogram of synthetic data]{2D phasogram of synthetic data. The data has been generated with two non-identical 
+single-temperature hot spots.  }
+\label{fig: phaso2D}
+\end{figure}
+
+The pulse profile technique starts with a light curve data that consists in an X-ray photon counts binned by energy channel and by rotational phase, as in the two-dimensional phasogram displayed in F\textsc{igure} \ref{fig: phaso2D} where we present a synthetic data as could be observed by NICER. The photon counts are binned by rotational phase
+and by energy channels scaling from $0.2$ to$\unit{2}{\kilo eV}$.
+
+Then, an instrument response function including a Redistribution Matrix File and an Auxiliary Response File is applied to the data in order to convert the detectors channel into energy and to account for the efficiency of the detector. The pulse profile modelling relies on a parametrized light curve model describing the pulsations produced by a rotating, radiating surface from a relativistic pulsar. This model includes various sets of parameters setting up the geometry of the hot spots and the space-time structure. 
+
+In a Bayesian approach,  a set of prior distributions is provided for those parameters. A likelihood evaluation is performed on the data for a given model with a given set of parameters. This gives the probability of obtaining the data from a given model.  The likelihood calculation is then coupled to a sampler that explores parameter space to generate a posterior probability distribution of those parameters. The equation of state inference can be either done directly if the equation of state parameters have been implemented in the model of light curves or can be derived using the mass and radius posteriors. The latter is based on the assumption that the likelihood function is proportional to the distribution of the mass and the radius, provided that the prior distribution of these two parameters are non-informative.
+ 
+
+
+\subsection{$M$, $R$ and EOS inference with XPSI }
+\label{subsec: XPSI}
+\hspace{\parindent}	 The  X-Ray Pulsation Simulation and Inference (X-PSI) is a Python software dedicated to performing a Pulse Profile modelling on the thermally emitted X-ray from hot regions on a rotating surface of an isolated pulsar \footnote{A documentation can be found in \url{https://thomasedwardriley.github.io/xpsi/model_construction.html}}.
+The X-ray pulsation model is based on a likelihood functionality. Coupled to an open-source statistical sampling software such as MultiNest to be used in high-performance computing systems, it can draw samples from a Bayesian posterior probability of the model parameters, conditional to the observed data. \\
+
+To generate a synthetic pulse profile, the X-PSI code performs a relativistic ray-tracing of the emergent radiation from a mapped surface emission which is propagated through the exterior spacetime of a rapidly rotating relativistic object. 
+The ray propagation is affected by  relativistic effects such as gravitational light bending and gravitational redshift as described in S\textsc{ection} \ref{subsec: EmissionModels}.\\
+
+X-PSI constructs the emergent signal by combining a pre-processed dataset to \begin{enumerate*}[label = \roman*)]
+\item instrument model representing the instrumental response of NICER,
+\item an interstellar model describing radiation-matter interaction processes that affect the surface radiation field from the hot spots during its propagation to the instrument and
+\item  a background model of the radiation incident on the instrument. 
+\end{enumerate*}  Then, X-PSI constructs a star by defining its surface radiation field and the hot regions, its photosphere and its exterior space-time. The X-PSI inference code handles different models of hots spots. There are different configurations of shapes and temperature pattern that could be implemented. For example, two hot spots can be forced to be related by antipodal symmetry. This configuration is motivated by physical consideration of a dominantly centred-dipolar field which is translated into a symmetrical distribution of the heat on the surface \cite{Riley+19}. In other models, the two hot spots can have unshared parameters so that their properties and location have independent values, with the exception however that the two regions don't overlap. Different temperature patterns and shapes can be considered for the two regions: one that includes a uniform single temperature for each spot of a circular, crescent or even ring shapes (centred or off-centred) and one with a double temperature model can be considered for a region in the shape of a crescent or a ring. \\
+
+Then the constructed star with all its attributes (photosphere, hot regions configuration and space-time) and the signal are combined into a likelihood functionality which provides the probability of the data as a function of parameters. The model also includes a prior distribution of the parameters entering in the likelihood function.  At this step of the waveform modelling, X-PSI can produce synthetic light curves for a given set of parameters. To derive the posterior probability distribution of the model parameters, the likelihood functionality is coupled to a sampler during the inference process.\\
+
+
+%*********************************************************************
+%         APPLICATION AUX PULSARS 
+%*********************************************************************
+\newpage
+\section{The study of one millisecond pulsar: PSR J0030+0451 } 
+\label{sec: 3}
+\hspace{\parindent}	 We give in this section preliminary results of the MPS radio pulsar PSR J0030+0451. This rotation-powered pulsar has been first observed as a radio pulsar by Lommen et al.(2000) \cite{Lorimer+2008}, before being detected as an X-ray pulsar  (Becker et al. 2000) \cite{BeckerPSRJ0030}. This multi-wavelength observation has enabled a measurement of its distance, estimated to be of $325 \pm 9\  \rm{pc} $, and of its spin frequency, which is estimated to be $\unit{205}{\hertz}$ (Arzoumanian et al.
+2018) \cite{PSRJ0030}.
+\subsection{Pulse profile analysis of PSR J0030+0451 }
+\begin{figure}[!h]
+\centering
+\includegraphics[width=0.8\textwidth]{pictures/signal.pdf}
+\caption[Posterior expected signal of PSR J0030+0451]{Posterior expected signal of PSR J0030+0451 for the Single Temperature Symmetric (STS) model. {\itshape{On top}}: The signal incident on the instrument, proportional to the specific photon flux. 
+{\itshape{On bottom}} : The signal as detected by the detector with the instrumental response. 
+The signal as perceived by NICER is slightly more constrained than the incident signal.}
+\label{fig: signal_posterior}
+\end{figure}
+
+Since the observed light curve displayed in F\textsc{igure} \ref{fig:pulsations} indicates the presence of two pulsations, we opt for a model including two hot spots. The analysis is undertaken for a simple model in which the two hot regions have been imposed to be at antipodal symmetry, with a single temperature for each one.  The expected signal, taking into account the instrumental response and the propagation through the interstellar medium is presented in F\textsc{igure} \ref{fig: signal_posterior}. 
+We have restricted the analysis to a subset of channel detectors $[30,300)$, corresponding to $0.3$-$3\ \rm{eV}$ and a total exposure time of $\unit{1936864.0}{\second}$. 
+
+\newpage
+\subsection{Post-Processing results}
+
+\hspace{\parindent}	 In F\textsc{igure} \ref{fig: SpaceStructureParameters}, we represent  the marginal posterior density distribution of the space-time structure parameters that are: the gravitational mass $M$, the equatorial radius $R_{\rm{eq}}$ and the compactness $M/R_{\rm{eq}}$. 
+STS model leads to an estimated equatorial radius of $R_{\rm{eq}} ~ \sim \unit{15.974}{\kilo \meter}$ and a gravitational mass of $M_{\rm{grav}} \sim 2.9\ M_{\odot}$. Those values are higher than expected and with respect to what is obtained with more sophisticated models of hot regions by Riley et al (2019)\cite{Riley+19}.  In the literature, the mass has been estimated to be \unit{1.34}{M_{\odot}} and the radius to be \unit{12.71}{\kilo\meter}.\\
+
+
+\begin{figure}
+\includegraphics[width=0.8\textwidth]{pictures/PostProcessing1.pdf}
+\caption[$M$ and $R$ inference]{$M$ and $R$ Bayesian inference. The shaded area in top panels codes for the {\itshape{credible interval}}}
+\label{fig: SpaceStructureParameters}
+\end{figure}
+
+
+The marginal density distribution for all the parameters of the model is displayed in F\textsc{igure} \ref{fig: ModelParametersDistribution}. Besides the space-time structure parameters, the marginal posterior density of geometric parameters of the hot regions are also represented. This result could, in principle, be used to infer the magnetic structure of the pulsar. \\
+
+
+
+This Bayesian inference process described in this work is sensitive to model assumptions and leads to model-dependent results. In particular, it is based on strong atmosphere assumptions \cite{Bogdanov+2007} and on the choice of the hot regions configuration \cite{Riley+19}. 
+\begin{figure}
+\includegraphics[width=0.9\textwidth]{pictures/PostProcessing4.pdf}
+\caption[Posterior density estimation of the model parameters]{Posterior density estimation of the model parameters including geometrical parameters related to the hot spots geometry. }
+\label{fig: ModelParametersDistribution}
+\end{figure}
+
+
+%\begin{figure}
+%\includegraphics[width=0.9\textwidth]{pictures/PostProcessing2.pdf}
+
+%\end{figure}
+
+
+
+
+
+\newpage
+\section*{Conclusion and Perspectives}
+\addcontentsline{toc}{section}{Conclusion and Perspectives}
+{\large{\textbf{Conclusion}}} We have conducted a preliminary Bayesian analysis on the rotation-powered millisecond pulsar PSR J0030+0451, using X-PSI, a likelihood-based software developed by Riley et al. (2019) and described in \cite{Riley+19}. Further investigation on the parameters is mandatory to retrieve better constraints of the pulsar mass and radius. Indeed, the analysis relies on a simple model that imposes the two hot regions to be circular and symmetric. In the next step, we will try different hot spots configurations and compare the post processing results to deduce the best parameters constraints. It is possible that the large radius and mass found for PSR J0030+0451 is due to the model converging in a local minimum. Future studies will ensure that the whole of the parameter space is investigated in order to avoid this and provide a better estimate of the mass and the radius. Then, we will attempt to infer an EOS constraint. 
+The study can be extended to other MPSs in order to get a wide sample of pulsars masses and radii and hence mapping the EOS. \\
+
+{\noindent \large{\textbf{Perspectives}} }The pulse profile modelling technique described in S\textsc{ection} \ref{subsec: PulseProfileTechnique} and used in this work does not only work for rotational powered pulsars. It can indeed be applied to the thermal X-ray pulsations from accretion-powered X-ray pulsars and from thermonuclear burst oscillation sources \cite{Watts_PulseProfileModelling}. This will be at the heart of future X-ray timing missions such as the enhanced X-ray Timing and Polarimetry eXTP and  the Spectroscopic Time-Resolving Observatory for Broadband Energy X-rays STROBE-X. The imaging X-ray telescope, Athena, a soft X-ray observatory, could also be used in a synergistic way for the pulse profile modelling provided by eXTP or STROBE-X. \\
+
+{\large{\textbf{Acknowledgements}}}
+First of all, I would like to deeply thank my supervisor Natalie Webb for her constant support throughout the project and for her advices. I would also like to thank all the NICER people in Amstersdam, namely Riley, Devarshi, Yves Kini and of course Serena who have helped me to solve the numerous issues with the software. 
+I obviously thank everyone in irap that I met: Erwan, Hugo,  Quentin and Simon for sharing convivial coffee breaks with me, Benjamin for the laughs we shared in the office and Wilfried for his meticulous review of this work.\\
+
+\clearpage
+\bibliographystyle{ieeetr}
+\addcontentsline{toc}{section}{References}
+\begin{multicols}{2}
+\bibliography{ref}
+\end{multicols}
+\end{document}
+

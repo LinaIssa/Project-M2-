@@ -1,0 +1,15 @@
+\babel@toc {english}{}
+\contentsline {section}{Abstract}{3}{section*.1}%
+\contentsline {section}{\numberline {1}Introduction : the neutron stars under scrutiny with {\itshape {NICER }}}{1}{section.1}%
+\contentsline {subsection}{\numberline {1.1}The make-up of neutron stars}{1}{subsection.1.1}%
+\contentsline {subsection}{\numberline {1.2}The different populations of neutron stars }{3}{subsection.1.2}%
+\contentsline {subsection}{\numberline {1.3}The {\itshape {NICER}} telescope: unveiling neutron stars' interiors}{6}{subsection.1.3}%
+\contentsline {section}{\numberline {2}Modelling the X-ray emission from MPS{\tiny {s}} surface hot spots}{10}{section.2}%
+\contentsline {subsection}{\numberline {2.1}The emission models of pulsar }{10}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}The Pulse profile modelling technique with a Bayesian approach}{13}{subsection.2.2}%
+\contentsline {subsection}{\numberline {2.3}$M$, $R$ and EOS inference with XPSI }{14}{subsection.2.3}%
+\contentsline {section}{\numberline {3}The study of one millisecond pulsar: PSR J0030+0451 }{15}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Pulse profile analysis of PSR J0030+0451 }{15}{subsection.3.1}%
+\contentsline {subsection}{\numberline {3.2}Post-Processing results}{16}{subsection.3.2}%
+\contentsline {section}{Conclusion and Perspectives}{18}{section*.16}%
+\contentsline {section}{References}{19}{section*.16}%
